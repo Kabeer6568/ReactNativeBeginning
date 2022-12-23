@@ -7,7 +7,7 @@
  */
 
 import React from 'react';
-import type {Node} from 'react';
+// import type {Node} from 'react';
 import {
   SafeAreaView,
   ScrollView,
@@ -15,6 +15,9 @@ import {
   StyleSheet,
   Text,
   useColorScheme,
+  TouchableOpacity,
+  Image,
+  TextInput,
   View,
 } from 'react-native';
 
@@ -28,90 +31,116 @@ import {
 
 /* $FlowFixMe[missing-local-annot] The type annotation(s) required by Flow's
  * LTI update could not be added via codemod */
-const Section = ({children, title}): Node => {
-  const isDarkMode = useColorScheme() === 'dark';
-  return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
-  );
-};
 
-const App: () => Node = () => {
-  const isDarkMode = useColorScheme() === 'dark';
 
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
+const App = () => {
+  const [text, onChangeText] = React.useState("Enter User Name");
+  const [number, onChangeNumber] = React.useState(null);
+
+  const [email, onChangeEmail] = React.useState("Enter Email");
+  // const [number, onChangeNumber] = React.useState(null);
 
   return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
+    <>
+      <View style={styles.container}>
+        <View style={styles.imageAlignment}>
+      <Image
+        style={styles.tinyLogo}
+        source={{
+          uri: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/ZDF_logo%21_Logo_2021.svg/1200px-ZDF_logo%21_Logo_2021.svg.png',
+        }}
       />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.js</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
-        </View>
-      </ScrollView>
-    </SafeAreaView>
-  );
-};
+      </View>
+      
+        <Text style={styles.mainHeading}>
+          Login Here!
+        </Text>
+        <SafeAreaView>
+          <TextInput
+            style={styles.input}
+            onChangeText={onChangeText}
+            value={text}
+          />
+          <TextInput
+            style={styles.input}
+            onChangeText={onChangeEmail}
+            value={email}
+            keyboardType="email"
+          />
+        </SafeAreaView>
+        <TouchableOpacity style={styles.button}>
+            <Text>
+              Submit
+            </Text>
+          </TouchableOpacity>
+          </View>
+      
+    </>
+
+  )
+}
+
 
 const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
+  mainHeading: {
+    fontSize: 35,
+    color: '#000',
+    marginBottom: 20,
+    fontWeight: "bold",
+    fontFamily: "sans-serif"
   },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
+  container: {
+    display: 'flex',
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: "#fff",
+    marginBottom: 60,
+    marginTop: 60,
+    marginLeft: 30,
+    marginRight: 30,
+    borderStyle: "solid",
+    borderRadius: 40,
+
   },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
+  alignments: {
+    display: 'flex',
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
-  highlight: {
-    fontWeight: '700',
+  input: {
+    height: 40,
+    margin: 10,
+    borderWidth: 1,
+    borderRadius: 5,
+    padding: 10,
+    width: 250,
+    color: '#ABABAB',
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
   },
-});
+  button:{
+    marginTop: 10,
+    backgroundColor: '#666',
+    padding: 10,
+    width: 250,
+    display: 'flex',
+    alignItems: "center",
+    borderRadius: 5,
+    
+  },
+  tinyLogo: {
+    marginBottom: 20,
+    width: 200,
+    height: 80,
+  },
+  
+})
 
 export default App;
