@@ -6,7 +6,7 @@
  * @flow strict-local
  */
 
-import React from 'react';
+import React, { useState } from 'react';
 // import type {Node} from 'react';
 import {
   SafeAreaView,
@@ -15,6 +15,7 @@ import {
   StyleSheet,
   Text,
   useColorScheme,
+  Pressable,
   TouchableOpacity,
   Image,
   TextInput,
@@ -35,46 +36,92 @@ import {
 
 const App = () => {
   const [text, onChangeText] = React.useState("Enter User Name");
-  const [number, onChangeNumber] = React.useState(null);
-
   const [email, onChangeEmail] = React.useState("Enter Email");
-  // const [number, onChangeNumber] = React.useState(null);
 
+  const hidden = styles.hidden;  
+  const [login, useLogin] = useState(hidden);
   return (
     <>
       <View style={styles.container}>
+
         <View style={styles.imageAlignment}>
-      <Image
-        style={styles.tinyLogo}
-        source={{
-          uri: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/ZDF_logo%21_Logo_2021.svg/1200px-ZDF_logo%21_Logo_2021.svg.png',
-        }}
-      />
-      </View>
-      
-        <Text style={styles.mainHeading}>
-          Login Here!
-        </Text>
-        <SafeAreaView>
-          <TextInput
-            style={styles.input}
-            onChangeText={onChangeText}
-            value={text}
+          <Image
+            style={styles.tinyLogo}
+            source={{
+              uri: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/ZDF_logo%21_Logo_2021.svg/1200px-ZDF_logo%21_Logo_2021.svg.png',
+            }}
           />
-          <TextInput
-            style={styles.input}
-            onChangeText={onChangeEmail}
-            value={email}
-            keyboardType="email"
-          />
-        </SafeAreaView>
-        <TouchableOpacity style={styles.button}>
+        </View>
+        <View style={styles.mainBtns}>
+          <View>
+            <TouchableOpacity style={[styles.loginBtns, styles.mainBtnsChild]} onPress={console.log(hidden)}>
+              <Text>
+                Login
+              </Text>
+            </TouchableOpacity>
+          </View>
+          <View>
+            <TouchableOpacity style={[styles.loginBtns, styles.mainBtnsRegister]}>
+              <Text>
+                Register
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+        {/* Login Foprm */}
+
+        <View style={[styles.loginForm]}>
+          <Text style={styles.mainHeading}>
+            Login Here!
+          </Text>
+          <SafeAreaView>
+            <TextInput
+              style={styles.input}
+              onChangeText={onChangeText}
+              value={text}
+            />
+            <TextInput
+              style={styles.input}
+              onChangeText={onChangeEmail}
+              value={email}
+              keyboardType="email"
+            />
+          </SafeAreaView>
+          <TouchableOpacity style={styles.button}>
             <Text>
               Submit
             </Text>
           </TouchableOpacity>
-          </View>
-      
+        </View>
+
+        {/* Register Form */}
+
+        <View style={[styles.registerForm,]}>
+          <Text style={styles.mainHeading}>
+            Register Here!
+          </Text>
+          <SafeAreaView>
+            <TextInput
+              style={styles.input}
+              onChangeText={onChangeText}
+              value={text}
+            />
+            <TextInput
+              style={styles.input}
+              onChangeText={onChangeEmail}
+              value={email}
+              keyboardType="email"
+            />
+          </SafeAreaView>
+          <TouchableOpacity style={styles.button}>
+            <Text>
+              Submit
+            </Text>
+          </TouchableOpacity>
+        </View>
+
+      </View>
+
     </>
 
   )
@@ -103,9 +150,14 @@ const styles = StyleSheet.create({
     borderRadius: 40,
 
   },
-  alignments: {
+  registerForm: {
+    display: 'none',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  loginForm: {
     display: 'flex',
-    flex: 1,
+    // flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -114,7 +166,7 @@ const styles = StyleSheet.create({
     margin: 10,
     borderWidth: 1,
     borderRadius: 5,
-    padding: 10,
+    padding: 12,
     width: 250,
     color: '#ABABAB',
     shadowColor: "#000",
@@ -125,7 +177,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
   },
-  button:{
+  button: {
     marginTop: 10,
     backgroundColor: '#666',
     padding: 10,
@@ -133,14 +185,43 @@ const styles = StyleSheet.create({
     display: 'flex',
     alignItems: "center",
     borderRadius: 5,
-    
+
+  },
+  loginBtns: {
+    marginTop: 10,
+    backgroundColor: '#666',
+    padding: 10,
+    width: 150,
+    alignItems: "center",
+    borderRadius: 5,
+  },
+  mainBtns: {
+    flex: 0,
+    marginTop: 10,
+    marginBottom: 10,
+    alignItems: "center",
+    flexDirection: 'row'
+  },
+  mainBtnsChild: {
+    width: 110,
+     height: 50,
+     justifyContent: 'center',
+     marginRight: 10,
+  },
+  mainBtnsRegister: {
+    width: 110,
+    height: 50,
+    justifyContent: 'center'
+  },
+  hidden:{
+    display: 'none',
   },
   tinyLogo: {
     marginBottom: 20,
     width: 200,
     height: 80,
   },
-  
+
 })
 
 export default App;
